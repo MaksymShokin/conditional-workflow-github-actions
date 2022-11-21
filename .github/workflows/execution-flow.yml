@@ -77,3 +77,13 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
+  report:
+    needs: [lint, deploy]
+    # if any lint or deploy job would fail, report job will run
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output report
+        run: |
+          echo "Something went wrong."
+          echo ${{ toJSON(github) }}
