@@ -35,6 +35,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Test code
+        #  will continue workflow even is this step results to failure
+        continue-on-error: true
         id: run-tests
         run: npm run test
       - name: Upload test report
