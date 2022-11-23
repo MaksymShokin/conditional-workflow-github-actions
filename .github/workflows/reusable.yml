@@ -11,8 +11,16 @@ on:
       some-secret:
         description: Some useful secret
         required: false
+    outputs:
+      result:
+        description: The output of deployment step
+         # get output from specific job and set it as output of a workflow
+        value: ${{ jobs.deploy.outputs.outcome }}
 jobs:
   deploy:
+    outputs:
+      # get output by id
+      outcome: ${{ steps.set-result.outputs.step-result }}
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -23,3 +31,6 @@ jobs:
         run: ls
       - name: Output information
         run: echo "Deploying..."
+      - name: Set result output
+        id: set-result
+        run: echo "step-result=success" >> $GITHUB_OUTPUT
