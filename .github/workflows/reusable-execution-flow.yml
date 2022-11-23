@@ -73,6 +73,8 @@ jobs:
     needs: build
     # references our defined workflow
     uses: ./.github/workflows/reusable.yml
+    with: 
+      artifact-name: dist-files
   report:
     needs: [lint, deploy]
     # if any lint or deploy job would fail, report job will run
