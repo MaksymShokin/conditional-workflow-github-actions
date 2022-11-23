@@ -73,8 +73,11 @@ jobs:
     needs: build
     # references our defined workflow
     uses: ./.github/workflows/reusable.yml
+    # pass inputs to custom workflow
     with: 
       artifact-name: dist-files
+    secrets:
+      some-secret: super-secret
   report:
     needs: [lint, deploy]
     # if any lint or deploy job would fail, report job will run
